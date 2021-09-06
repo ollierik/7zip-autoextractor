@@ -81,9 +81,11 @@ std::wstring find_nonexisting_sibling_path (const fs::path& target_path)
     fs::path extensions = filename_extensions (filename);
     filename = filename_without_extensions (filename);
 
+#if 0
     std::cout << dir << std::endl;
     std::cout << filename << std::endl;
     std::cout << extensions << std::endl;
+#endif
 
     int increment = 1;
     fs::path candidate;
@@ -120,22 +122,21 @@ int wmain(int argc, wchar_t *argv[])
     }
 
     fs::path archive_path = fs::absolute(fs::path { argv[1] });
+#if 0
     std::cout << archive_path << std::endl;
+#endif
 
     {
         // TODO extension protection
         std::wstring extensions = filename_extensions(archive_path.filename());
     }
 
-    //std::cout << in_path.parent_path() << std::endl;
-    //std::cout << in_path.parent_path().stem() << std::endl;
-
     try
     {
         Bit7zLibrary lib { L"7z.dll" };
         BitArchiveInfo archive { lib, archive_path, BitFormat::Auto };
 
-        //printing archive metadata
+#if 0
         std::wcout << L"Archive properties" << std::endl;
         std::wcout << L" Items count: "   << archive.itemsCount() << std::endl;
         std::wcout << L" Folders count: " << archive.foldersCount() << std::endl;
@@ -143,7 +144,7 @@ int wmain(int argc, wchar_t *argv[])
         std::wcout << L" Size: "          << archive.size() << std::endl;
         std::wcout << L" Packed size: "   << archive.packSize() << std::endl;
         std::wcout << std::endl;
-
+#endif
 
         size_t num_items = archive.itemsCount();
 
@@ -165,7 +166,9 @@ int wmain(int argc, wchar_t *argv[])
         {
             fs::path dst_path = fs::absolute (fs::path { archive_items[0].name() });
             dst_path = find_nonexisting_sibling_path (dst_path);
+#if 0
             std::cout << dst_path << std::endl;
+#endif
 
             std::ofstream ofs (dst_path, std::ios::binary);
 
