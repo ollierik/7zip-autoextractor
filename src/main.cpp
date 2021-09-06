@@ -52,7 +52,7 @@ std::filesystem::path filename_extensions (std::filesystem::path filename)
         return {};
     }
 
-    return str.substr (dotpos);
+    return fs::path { str.substr (dotpos) };
 }
 
 /**
@@ -76,21 +76,10 @@ std::wstring find_nonexisting_sibling_path (const fs::path& target_path)
         dir = dir.parent_path();
     }
 
-    // remove extension(s) from filename
-#if 0
-    fs::path extension;
-    {
-        const std::wstring filename_string = filename;
-        size_t dotpos = filename_string.find_first_of('.');
-        if (dotpos != std::wstring::npos)
-        {
-            filename = filename_string.substr (0, dotpos);
-            extension = filename_string.substr (dotpos);
-        }
-    }
-#endif
-    filename = filename_without_extensions (filename);
+    // separate extension(s) from filename
+
     fs::path extensions = filename_extensions (filename);
+    filename = filename_without_extensions (filename);
 
     std::cout << dir << std::endl;
     std::cout << filename << std::endl;
