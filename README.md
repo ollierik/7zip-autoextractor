@@ -26,9 +26,11 @@ No more huge archives having their guts accidentally splattered over Downloads.
 ## Building
 Clone 7zip-autoextractor and https://github.com/rikyoz/bit7z to same directory.
 i.e.
+```
 -- my_code_dir/
 ---- 7zip-autoextractor/
 ---- bit7z/
+```
 
 Build bit7z using the instrucitions in their repository. 7zip-autoextractor requires the bit7z's DBIT7Z_AUTO_FORMAT=1 to work.
 e.g.
